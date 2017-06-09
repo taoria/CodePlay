@@ -1,0 +1,22 @@
+﻿<Window x:Class="CodePlay.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CodePlay"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="186.874" Width="274.115" ResizeMode="NoResize" Background="{x:Null}" Foreground="{x:Null}" Visibility="Visible" AllowsTransparency="True" WindowStyle="None"
+        >
+    <Image x:Name="image" HorizontalAlignment="Left" Height="187" Margin="0,0,0,0" VerticalAlignment="Top" Width="189" RenderTransformOrigin="0.482,0.489"/>
+    <Window.ContextMenu >
+        <ContextMenu>
+            <MenuItem Header="增加库" Click="AddRepo">
+            </MenuItem>
+            <MenuItem Header="配置文件">
+            </MenuItem>
+            <MenuItem Header="隐藏" Click="HiddenWindow">
+            </MenuItem>
+        </ContextMenu>
+    </Window.ContextMenu>
+</Window>
+    
