@@ -6,15 +6,20 @@
         xmlns:local="clr-namespace:CodePlay"
         mc:Ignorable="d"
         Title="MainWindow" Height="186.874" Width="274.115" ResizeMode="NoResize" Background="{x:Null}" Foreground="{x:Null}" Visibility="Visible" AllowsTransparency="True" WindowStyle="None"
-        >
-    <Image x:Name="image" HorizontalAlignment="Left" Height="187" Margin="0,0,0,0" VerticalAlignment="Top" Width="189" RenderTransformOrigin="0.482,0.489"/>
+       
+        MouseDoubleClick="MainWindow_OnMouseDoubleClick"
+        MouseEnter="MainWindow_OnMouseEnter">
+    <Image x:Name="image" HorizontalAlignment="Left" Height="187" Margin="0,0,0,0" VerticalAlignment="Top" Width="189" RenderTransformOrigin="0.482,0.489" />
     <Window.ContextMenu >
         <ContextMenu>
             <MenuItem Header="增加库" Click="AddRepo">
             </MenuItem>
-            <MenuItem Header="配置文件">
+            <MenuItem Header="配置文件" Click="MenuItem_OnClick">
             </MenuItem>
             <MenuItem Header="隐藏" Click="HiddenWindow">
+       
+            </MenuItem>
+            <MenuItem Header="退出" Click="QuitApp">
             </MenuItem>
         </ContextMenu>
     </Window.ContextMenu>
