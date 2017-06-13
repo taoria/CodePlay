@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CodePlay"
         mc:Ignorable="d"
-        Title="MainWindow" Height="186.874" Width="274.115" ResizeMode="NoResize" Background="{x:Null}" Foreground="{x:Null}" Visibility="Visible" AllowsTransparency="True" WindowStyle="None"
+        Title="MainWindow" Height="5697668.673" Width="263.634" ResizeMode="NoResize" Background="{x:Null}" Foreground="{x:Null}" Visibility="Visible" AllowsTransparency="True" WindowStyle="None"
        
         MouseDoubleClick="MainWindow_OnMouseDoubleClick"
         MouseEnter="MainWindow_OnMouseEnter">
@@ -17,7 +17,7 @@
             <MenuItem Header="配置文件" Click="MenuItem_OnClick">
             </MenuItem>
             <MenuItem Header="隐藏" Click="HiddenWindow">
-       
+
             </MenuItem>
             <MenuItem Header="退出" Click="QuitApp">
             </MenuItem>
