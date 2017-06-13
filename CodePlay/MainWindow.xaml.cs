@@ -57,10 +57,15 @@ namespace CodePlay {
             }
 
             //Load Anime System
-            Animer = inits.LoadAnime(Config.AnimeAdress);
+            Animer = inits.LoadAnime(Config.AnimeAddress);
             if (Animer == null) {
                 Animer = inits.CreateInitializedAnime();
             }
+
+
+            Animer.Img = image;
+            Animer.Loaded();
+
         }
 
 
@@ -136,8 +141,13 @@ namespace CodePlay {
         }
 
         private void MainWindow_OnMouseEnter(object sender, MouseEventArgs e) {
-            
 
+            Animer.Hovering();
+            
+        }
+
+        private void MainWindow_OnMouseLeave(object sender, MouseEventArgs e) {
+           Animer.ShowNormalAnime();
         }
     }
     [XmlRootAttribute( "Config", IsNullable = false )]
@@ -202,39 +212,47 @@ namespace CodePlay {
                     tempBitmapImage.BeginInit();
                     tempBitmapImage.StreamSource = new FileStream(filei.FullName, FileMode.Open );
                     tempBitmapImage.EndInit();
-                    tempBitmapImage.StreamSource.Close();
-                    dc[result] = tempBitmapImage;
-                    
-             
+                    dc.Add(result,tempBitmapImage);
+
+
+       
+         
+
                 }
             }
+            animeFramer.Interval = new TimeSpan( 0, 0, 0, 0, (int)(Wait * 1000) );
+            ShowNormalAnime();
+            animeFramer.Tick += OnAnimeFramerOnTick;
+            animeFramer.Start();
         }
-        public void OnHover() {
-            DispatcherTimer animeFramer = new DispatcherTimer();
-            animeFramer.Interval = new TimeSpan(0,0,0,0,(int) (Wait*1000));
-            animeFramer.Tick += (s, e) => {
-                if (!IsGif) {
-                    Img.Source = dc[_point++];
+        DispatcherTimer animeFramer = new DispatcherTimer();
+
+        private void OnAnimeFramerOnTick(object s, EventArgs e) {
+            if (!IsGif) {
+            //    MessageBox.Show(workingList.Count.ToString());
+                Img.Source = dc[workingList[_point = ((_point + 1) % workingList.Count)]];
+                if (workingList.Count==2) {
+                    //MessageBox.Show(_point.ToString());
                 }
-            };
-        }
 
-        public void OnAnime() {
-            DispatcherTimer animeFramer = new DispatcherTimer();
-
-            if (workingList.Count == 1) {
-                Img.Source = dc[workingList[_point]];
+         //       Console.WriteLine( _point );
             }
-            animeFramer.Interval = new TimeSpan(0, 0, 0, 0, (int) (Wait * 1000));
-            animeFramer.Tick += (s, e) => {
-                if (!IsGif) {
-                    Img.Source = dc[workingList[_point++]];
-                }
-            };
-
-
         }
 
+        private void OnWorking(string animeString) {
+            string[] parted =animeString.Split(',');
+            workingList.Clear();
+            workingList= new List<int>(Array.ConvertAll( parted, int.Parse ));
+        }
+
+        public void Hovering() {
+            OnWorking(OnHoverAnime);
+         //   MessageBox.Show(workingList.Count.ToString());
+        }
+
+        public void ShowNormalAnime() {
+            OnWorking(NormalAnime);
+        }
     }
     public class GitUtility {
         public Config config;
@@ -261,6 +279,8 @@ namespace CodePlay {
             if(e.Data != null)
                 ++count;
         }
+
+
         public List<string> Run() {
             List<string> ls = new List<string>();
             string gitPath = System.IO.Path.Combine( EnvironmentVariable, "git.exe" );
@@ -303,8 +323,8 @@ namespace CodePlay {
 
         }
 
-        [XmlElementAttribute( "ImageAdress", IsNullable = false )]
-        public string ImageAdress { get; set; }
+        [XmlElementAttribute( "ImageAddress", IsNullable = false )]
+        public string ImageAddress { get; set; }
 
         [XmlElementAttribute( "ImageScaledX" )]
         public float ImageScaledX { get; set; }
@@ -329,7 +349,7 @@ namespace CodePlay {
         public int ShiftY { get; set; }
 
         [XmlElementAttribute( "AnimerConfig" )]
-        public string AnimeAdress { get; set; }
+        public string AnimeAddress { get; set; }
 
         public void SaveConfig() {
             XmlSerializer.SaveToXml( "config.xml", this, typeof( Config ), "Config" );
@@ -375,7 +395,7 @@ namespace CodePlay {
         }
         public Config CreateInitializedConfig() {
             Config config = new Config();
-            config.ImageAdress = "image.jpg";
+            config.ImageAddress = "image.jpg";
             config.WindowWidth = 250;
             config.WindowHeight = 150;
             config.ShiftX = 100;
@@ -386,6 +406,7 @@ namespace CodePlay {
             config.TypeCodeText.Add( ".h" );
             config.TypeCodeText.Add( ".cs" );
             config.TypeCodeText.Add( ".java" );
+            config.AnimeAddress = "animeconfig.xml";
             XmlSerializer.SaveToXml( "config.xml", config, typeof( Config ), "Config" );
             return config;
 

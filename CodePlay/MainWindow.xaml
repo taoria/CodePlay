@@ -8,7 +8,8 @@
         Title="MainWindow" Height="5697668.673" Width="263.634" ResizeMode="NoResize" Background="{x:Null}" Foreground="{x:Null}" Visibility="Visible" AllowsTransparency="True" WindowStyle="None"
        
         MouseDoubleClick="MainWindow_OnMouseDoubleClick"
-        MouseEnter="MainWindow_OnMouseEnter">
+        MouseEnter="MainWindow_OnMouseEnter"
+        MouseLeave="MainWindow_OnMouseLeave">
     <Image x:Name="image" HorizontalAlignment="Left" Height="187" Margin="0,0,0,0" VerticalAlignment="Top" Width="189" RenderTransformOrigin="0.482,0.489" />
     <Window.ContextMenu >
         <ContextMenu>
